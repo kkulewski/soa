@@ -1,5 +1,3 @@
-
-
 namespace Retail.Frontend.Web
 {
     using Messages;
@@ -15,6 +13,9 @@ namespace Retail.Frontend.Web
                 .UseNServiceBus(c =>
                 {
                     var endpointConfiguration = new EndpointConfiguration("retail.frontend");
+
+                    endpointConfiguration
+                        .UseSerialization<NewtonsoftSerializer>();
 
                     var transport = endpointConfiguration
                         .UseTransport<RabbitMQTransport>()

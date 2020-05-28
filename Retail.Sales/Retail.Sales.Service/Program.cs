@@ -1,11 +1,10 @@
-﻿using NServiceBus.Logging;
-
-namespace Retail.Sales.Service
+﻿namespace Retail.Sales.Service
 {
     using System;
     using System.Threading.Tasks;
     using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
+    using NServiceBus.Logging;
 
     class Program
     {
@@ -16,6 +15,9 @@ namespace Retail.Sales.Service
             var endpointConfiguration = new EndpointConfiguration("retail.sales");
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddSingleton(LogManager.GetLogger("Default"));
+
+             endpointConfiguration
+                .UseSerialization<NewtonsoftSerializer>();
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()

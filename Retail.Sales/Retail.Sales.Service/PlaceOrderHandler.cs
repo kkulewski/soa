@@ -1,7 +1,6 @@
 ﻿namespace Retail.Sales.Service
 {
     using System.Threading.Tasks;
-    using Frontend.Messages;
     using NServiceBus;
     using NServiceBus.Logging;
 
