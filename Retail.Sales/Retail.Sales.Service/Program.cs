@@ -13,14 +13,14 @@ namespace Retail.Sales.Service
         {
             Console.Title = "Sales Service";
 
-            var endpointConfiguration = new EndpointConfiguration("sales");
+            var endpointConfiguration = new EndpointConfiguration("retail.sales");
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddSingleton(LogManager.GetLogger("Default"));
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()
                 .UseDirectRoutingTopology()
-                .ConnectionString("host=localhost");
+                .ConnectionString("host=retail-rabbitmq");
 
             var endpoint = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 

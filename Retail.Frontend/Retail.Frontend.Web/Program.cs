@@ -14,15 +14,15 @@ namespace Retail.Frontend.Web
             Host.CreateDefaultBuilder(args)
                 .UseNServiceBus(c =>
                 {
-                    var endpointConfiguration = new EndpointConfiguration("frontend");
+                    var endpointConfiguration = new EndpointConfiguration("retail.frontend");
 
                     var transport = endpointConfiguration
                         .UseTransport<RabbitMQTransport>()
                         .UseDirectRoutingTopology()
-                        .ConnectionString("host=localhost");
+                        .ConnectionString("host=retail-rabbitmq");
 
                     transport.Routing()
-                        .RouteToEndpoint(assembly: typeof(PlaceOrder).Assembly, destination: "sales");
+                        .RouteToEndpoint(assembly: typeof(PlaceOrder).Assembly, destination: "retail.sales");
 
                     return endpointConfiguration;
                 })
