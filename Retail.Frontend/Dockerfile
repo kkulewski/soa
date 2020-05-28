@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Retail.Frontend.Web/Retail.Frontend.Web.csproj", "Retail.Frontend.Web/"]
+COPY ["Retail.Frontend.Messages/Retail.Frontend.Messages.csproj", "Retail.Frontend.Messages/"]
 RUN dotnet restore "Retail.Frontend.Web/Retail.Frontend.Web.csproj"
 COPY . .
 WORKDIR "/src/Retail.Frontend.Web"
