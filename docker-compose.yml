@@ -1,0 +1,28 @@
+version: '2.1'
+
+services:
+
+  retail-rabbitmq:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Queue
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  retail-frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Frontend
+    ports:
+      - '5000:80'
+    depends_on:
+      retail-rabbitmq:
+        condition: service_healthy
+    links: 
+        - retail-rabbitmq
