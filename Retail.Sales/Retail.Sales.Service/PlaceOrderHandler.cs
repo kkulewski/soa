@@ -14,10 +14,20 @@
             this.log = log;
         }
 
-        public Task Handle(PlaceOrder message, IMessageHandlerContext context)
+        public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
             this.log.Info($"Order {message.OrderId} with {message.Products.Count} items from customer {message.CustomerId} received!");
-            return Task.CompletedTask;
+
+            var orderPlacedEvent = new OrderPlaced
+            {
+                OrderId = message.OrderId,
+                CustomerId = message.CustomerId,
+                Products = message.Products
+            };
+
+            this.log.Info($"Order {message.OrderId} published!");
+
+            await context.Publish(orderPlacedEvent);
         }
     }
 }

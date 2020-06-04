@@ -3,10 +3,11 @@ using Retail.Frontend.Web.Models;
 
 namespace Retail.Frontend.Web.ViewModels
 {
-    public class OrderPlacedViewModel
+    public class OrderViewModel
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
         public List<Product> Products { get; set; }
+        public string ProductIds { get; set; }
     }
 }

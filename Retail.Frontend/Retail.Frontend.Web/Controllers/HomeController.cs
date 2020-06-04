@@ -25,20 +25,37 @@ namespace Retail.Frontend.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var products = new List<Product>();
+
+            var vm = new OrderViewModel
+            {
+                OrderId = Guid.NewGuid().ToString(),
+                CustomerId = Guid.NewGuid().ToString(),
+                Products = products,
+                ProductIds = string.Empty
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder()
+        public async Task<IActionResult> PlaceOrder(OrderViewModel vm)
         {
-            var orderId = Guid.NewGuid().ToString();
-            var customerId = Guid.NewGuid().ToString();
-            var products = new List<Product>();
-            var command = new PlaceOrder { OrderId = orderId, CustomerId = customerId, Products = products };
+            vm.Products = vm
+                .ProductIds
+                .Split(new [] {';', ',', ' '}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(id => new Product { ProductId = id })
+                .ToList();
+
+            var command = new PlaceOrder
+            {
+                OrderId = vm.OrderId,
+                CustomerId = vm.CustomerId,
+                Products = vm.Products
+            };
 
             await bus.Send(command).ConfigureAwait(false);
 
-            var vm = new OrderPlacedViewModel { OrderId = orderId, CustomerId = customerId, Products = products };
             return View(vm);
         }
 

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Retail.Frontend.Web.ViewModels.OrderViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,6 +11,11 @@
             <div class="card-body">
                 <form action="/home/placeorder" method="POST">
                     <h1 class="card-title">Place an order</h1>
+                    @Html.HiddenFor(m => m.OrderId)
+                    @Html.HiddenFor(m => m.CustomerId)
+                    @Html.HiddenFor(m => m.Products)
+                    <p>Comma separated list of product IDs:</p>
+                    @Html.TextBoxFor(m => m.ProductIds)
                     <p class="card-text">Click the button to place an order.</p>
                     <input type="submit" class="btn btn-lg btn-success" value="Place order" />
                 </form>
