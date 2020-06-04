@@ -1,9 +1,11 @@
 namespace Retail.Frontend.Web
 {
     using Messages;
+    using Mutators;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
     using NServiceBus;
+    using NServiceBus.MessageMutator;
 
     public class Program
     {
@@ -12,10 +14,13 @@ namespace Retail.Frontend.Web
             Host.CreateDefaultBuilder(args)
                 .UseNServiceBus(c =>
                 {
-                    var endpointConfiguration = new EndpointConfiguration("retail.frontend");
+                    var endpointConfiguration = new EndpointConfiguration("frontend");
 
                     endpointConfiguration
                         .UseSerialization<NewtonsoftSerializer>();
+
+                    endpointConfiguration
+                        .RegisterMessageMutator(new CommonNamespaceMutator());
 
                     var transport = endpointConfiguration
                         .UseTransport<RabbitMQTransport>()
@@ -23,7 +28,7 @@ namespace Retail.Frontend.Web
                         .ConnectionString("host=retail-rabbitmq");
 
                     transport.Routing()
-                        .RouteToEndpoint(assembly: typeof(PlaceOrder).Assembly, destination: "retail.sales");
+                        .RouteToEndpoint(assembly: typeof(PlaceOrder).Assembly, destination: "sales");
 
                     return endpointConfiguration;
                 })

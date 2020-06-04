@@ -30,7 +30,7 @@
   "policies":[],
   "queues":[
     {
-      "name":"retail.sales",
+      "name":"sales",
       "vhost":"/",
       "durable":true,
       "auto_delete":false,
@@ -39,7 +39,7 @@
       }
     },
     {
-      "name":"retail.frontend",
+      "name":"frontend",
       "vhost":"/",
       "durable":true,
       "auto_delete":false,

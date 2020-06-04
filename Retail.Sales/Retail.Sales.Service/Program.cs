@@ -5,6 +5,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using NServiceBus;
     using NServiceBus.Logging;
+    using NServiceBus.MessageMutator;
+    using Mutators;
 
     class Program
     {
@@ -12,12 +14,18 @@
         {
             Console.Title = "Sales Service";
 
-            var endpointConfiguration = new EndpointConfiguration("retail.sales");
+            var endpointConfiguration = new EndpointConfiguration("sales");
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddSingleton(LogManager.GetLogger("Default"));
 
              endpointConfiguration
                 .UseSerialization<NewtonsoftSerializer>();
+
+            endpointConfiguration
+                 .RegisterMessageMutator(new CommonIncomingNamespaceMutator());
+
+            endpointConfiguration
+                 .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()
