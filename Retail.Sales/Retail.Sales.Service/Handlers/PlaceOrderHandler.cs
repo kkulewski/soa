@@ -1,4 +1,4 @@
-﻿namespace Retail.Sales.Service
+﻿namespace Retail.Sales.Service.Handlers
 {
     using System.Threading.Tasks;
     using NServiceBus;
