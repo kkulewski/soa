@@ -1,4 +1,4 @@
-﻿@model Retail.Frontend.Web.ViewModels.OrderPlaced
+﻿@model Retail.Frontend.Web.ViewModels.OrderPlacedViewModel
 
 @{
     ViewData["Title"] = "Order placed";
@@ -6,7 +6,17 @@
 
 <div class="text-center">
     <h1 class="display-4">Order placed!</h1>
-    <p>
-        @Model.OrderId
-    </p>
+    <h3>Order ID:</h3>
+    <p>@Model.OrderId</p>
+    <h3>Customer ID: </h3>
+    <p>@Model.CustomerId</p>
+    <h3>Products</h3>
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>
+                @product.ProductId
+            </li>
+        }
+    </ul>
 </div>

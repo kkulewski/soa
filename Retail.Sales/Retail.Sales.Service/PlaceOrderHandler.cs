@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
+    using Messages;
 
     public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {
@@ -15,7 +16,7 @@
 
         public Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
-            this.log.Info($"Order {message.OrderId} received!");
+            this.log.Info($"Order {message.OrderId} with {message.Products.Count} items from customer {message.CustomerId} received!");
             return Task.CompletedTask;
         }
     }

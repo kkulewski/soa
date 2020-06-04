@@ -20,7 +20,7 @@ namespace Retail.Frontend.Web
                         .UseSerialization<NewtonsoftSerializer>();
 
                     endpointConfiguration
-                        .RegisterMessageMutator(new CommonNamespaceMutator());
+                        .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
 
                     var transport = endpointConfiguration
                         .UseTransport<RabbitMQTransport>()

@@ -14,10 +14,6 @@
     <PackageReference Include="NServiceBus.RabbitMQ" Version="5.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Retail.Frontend.Messages\Retail.Frontend.Messages.csproj" />
-  </ItemGroup>
-
 
 
 </Project>
