@@ -29,8 +29,8 @@
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()
-                .UseDirectRoutingTopology()
-                .ConnectionString("host=retail-rabbitmq");
+                .UseDirectRoutingTopology(messageType => messageType.Name)
+                .UsePublisherConfirms(true)
 
             var endpoint = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 

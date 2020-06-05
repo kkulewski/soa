@@ -16,8 +16,6 @@
 
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
-            this.log.Info($"Order {message.OrderId} with {message.Products.Count} items from customer {message.CustomerId} received!");
-
             var orderPlacedEvent = new OrderPlaced
             {
                 OrderId = message.OrderId,
@@ -25,9 +23,8 @@
                 Products = message.Products
             };
 
-            this.log.Info($"Order {message.OrderId} published!");
-
             await context.Publish(orderPlacedEvent);
+            this.log.Info($"Order {message.OrderId} from customer {message.CustomerId} received and confirmed.");
         }
     }
 }

@@ -26,7 +26,8 @@
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()
-                .UseDirectRoutingTopology()
+                .UseDirectRoutingTopology(messageType => messageType.Name)
+                .UsePublisherConfirms(true)
                 .ConnectionString("host=localhost");
 
             var endpoint = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);

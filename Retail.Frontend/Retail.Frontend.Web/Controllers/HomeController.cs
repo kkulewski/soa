@@ -26,11 +26,10 @@ namespace Retail.Frontend.Web.Controllers
         public IActionResult Index()
         {
             var products = new List<Product>();
-
             var vm = new OrderViewModel
             {
-                OrderId = Guid.NewGuid().ToString(),
-                CustomerId = Guid.NewGuid().ToString(),
+                OrderId = string.Empty,
+                CustomerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString(),
                 Products = products,
                 ProductIds = string.Empty
             };
@@ -41,6 +40,7 @@ namespace Retail.Frontend.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(OrderViewModel vm)
         {
+            vm.OrderId = Guid.NewGuid().ToString();
             vm.Products = vm
                 .ProductIds
                 .Split(new [] {';', ',', ' '}, StringSplitOptions.RemoveEmptyEntries)
