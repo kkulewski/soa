@@ -26,3 +26,33 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+
+  retail-sales:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Sales
+    depends_on:
+      retail-rabbitmq:
+        condition: service_healthy
+    links: 
+        - retail-rabbitmq
+
+  retail-recommendations:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Recommendations
+    depends_on:
+      retail-rabbitmq:
+        condition: service_healthy
+    links: 
+        - retail-rabbitmq
+
+  retail-shipping:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Shipping
+    depends_on:
+      retail-rabbitmq:
+        condition: service_healthy
+    links: 
+        - retail-rabbitmq
