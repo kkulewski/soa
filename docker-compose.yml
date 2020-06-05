@@ -36,6 +36,8 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+    stdin_open: true
+    tty: true
 
   retail-recommendations:
     build:
@@ -46,6 +48,8 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+    stdin_open: true
+    tty: true
 
   retail-shipping:
     build:
@@ -56,3 +60,5 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+    stdin_open: true
+    tty: true
