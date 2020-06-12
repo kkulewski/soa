@@ -10,7 +10,7 @@ NServiceBus console app. Uses saga to process order in each state.
 ### Billing
 NServiceBus console app. Collects payment for the orders. Uses key-value store to keep state.
 ### Shipping
-NServiceBus console app. Ships order product to the customer.
+NServiceBus console app. Ships order products to the customer.
 ### Recommendations
 NServiceBus console app. Implements "You may also like" feature for products with graph database.
 ### Search
