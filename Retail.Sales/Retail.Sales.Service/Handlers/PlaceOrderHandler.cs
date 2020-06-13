@@ -16,15 +16,15 @@
 
         public async Task Handle(PlaceOrder message, IMessageHandlerContext context)
         {
+            this.log.Info($"Order {message.OrderId} from customer {message.CustomerId} received.");
+
             var orderPlacedEvent = new OrderPlaced
             {
                 OrderId = message.OrderId,
                 CustomerId = message.CustomerId,
                 Products = message.Products
             };
-
             await context.Publish(orderPlacedEvent);
-            this.log.Info($"Order {message.OrderId} from customer {message.CustomerId} received.");
         }
     }
 }

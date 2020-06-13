@@ -16,9 +16,9 @@
 
         public async Task Handle(OrderPlaced message, IMessageHandlerContext context)
         {
+            this.log.Info($"Collected payment for order {message.OrderId} from customer {message.CustomerId}");
             var orderPaid = new OrderPaid { OrderId = message.OrderId };
             await context.Publish(orderPaid);
-            this.log.Info($"Collected payment for order {message.OrderId} from customer {message.CustomerId}");
         }
     }
 }

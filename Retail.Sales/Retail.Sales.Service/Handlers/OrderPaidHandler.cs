@@ -16,14 +16,13 @@
 
         public async Task Handle(OrderPaid message, IMessageHandlerContext context)
         {
+            this.log.Info($"Order {message.OrderId} confirmed.");
+
             var confirmedOrder = new OrderConfirmed
             {
                 OrderId = message.OrderId
             };
-
             await context.Publish(confirmedOrder);
-
-            this.log.Info($"Order {message.OrderId} confirmed.");
         }
     }
 }
