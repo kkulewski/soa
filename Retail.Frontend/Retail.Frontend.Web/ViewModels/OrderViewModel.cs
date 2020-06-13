@@ -8,6 +8,5 @@ namespace Retail.Frontend.Web.ViewModels
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
         public List<Product> Products { get; set; }
-        public string ProductIds { get; set; }
     }
 }

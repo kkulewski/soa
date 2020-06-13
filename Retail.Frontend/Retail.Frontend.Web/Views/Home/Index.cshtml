@@ -1,4 +1,4 @@
-﻿@model Retail.Frontend.Web.ViewModels.OrderViewModel
+﻿@model List<ProductViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,20 +6,19 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <div class="col-lg-4">
-        <div class="card my-4">
-            <div class="card-body">
-                <form action="/home/placeorder" method="POST">
-                    <h1 class="card-title">Place an order</h1>
-                    @Html.HiddenFor(m => m.OrderId)
-                    @Html.HiddenFor(m => m.CustomerId)
-                    @Html.HiddenFor(m => m.Products)
-                    <p>Comma separated list of product IDs:</p>
-                    @Html.TextBoxFor(m => m.ProductIds)
-                    <p class="card-text">Click the button to place an order.</p>
-                    <input type="submit" class="btn btn-lg btn-success" value="Place order" />
-                </form>
-            </div>
-        </div>
+    <br/>
+    <div class="row justify-content-md-center">
+        @if (Model.Count == 0)
+        {
+            <h3>Product catalog is empty!</h3>
+        }
+        else
+        {
+            @foreach (var product in Model)
+            {
+                @await Html.PartialAsync("_OrderPartial", product)
+                ;
+            }
+        }
     </div>
 </div>

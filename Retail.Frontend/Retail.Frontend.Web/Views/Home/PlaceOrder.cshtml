@@ -6,15 +6,25 @@
 
 <div class="text-center">
     <h1 class="display-4">Order placed!</h1>
-    <h3>Order ID</h3>
-    <p>@Model.OrderId</p>
-    <h3>Customer ID</h3>
-    <p>@Model.CustomerId</p>
-    <h3>Products</h3>
-    <p>
-        @foreach (var product in Model.Products)
-        {
-            @product.ProductId <br/>
-        }
-    </p>
+    <br/>
+    <div class="row justify-content-md-center">
+        <div class="card border-success mb-3">
+            <div class="card-header">
+                Order ID:<br />
+                @Model.OrderId
+            </div>
+            <div class="card-body text-success">
+                <p class="card-text">
+                    @foreach (var product in Model.Products)
+                    {
+                        @product.ProductId <br />
+                    }
+                </p>
+            </div>
+            <div class="card-footer text-muted">
+                Customer ID:<br />
+                @Model.CustomerId
+            </div>
+        </div>
+    </div>
 </div>

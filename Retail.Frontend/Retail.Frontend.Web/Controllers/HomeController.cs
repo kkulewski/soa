@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +11,7 @@ using NServiceBus;
 using Retail.Frontend.Web.Messages;
 using Retail.Frontend.Web.Models;
 using Retail.Frontend.Web.ViewModels;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Retail.Frontend.Web.Controllers
 {
@@ -23,38 +26,40 @@ namespace Retail.Frontend.Web.Controllers
             this.bus = bus;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = new List<Product>();
-            var vm = new OrderViewModel
-            {
-                OrderId = string.Empty,
-                CustomerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString(),
-                Products = products,
-                ProductIds = string.Empty
-            };
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"http://retail-catalog/product");
+            var json = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var vm = JsonSerializer.Deserialize<List<ProductViewModel>>(json, options);
 
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(OrderViewModel vm)
+        public async Task<IActionResult> PlaceOrder(ProductViewModel productVm)
         {
-            vm.OrderId = Guid.NewGuid().ToString();
-            vm.Products = vm
-                .ProductIds
-                .Split(new [] {';', ',', ' '}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => new Product { ProductId = id })
-                .ToList();
+            var products = new List<Product>
+            {
+                new Product { ProductId = productVm.ProductId }
+            };
 
             var command = new PlaceOrder
             {
-                OrderId = vm.OrderId,
-                CustomerId = vm.CustomerId,
-                Products = vm.Products
+                OrderId = Guid.NewGuid().ToString(),
+                CustomerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString(),
+                Products = products
             };
 
             await bus.Send(command).ConfigureAwait(false);
+
+            var vm = new OrderViewModel
+            {
+                OrderId = command.OrderId,
+                CustomerId = command.CustomerId,
+                Products = command.Products
+            };
 
             return View(vm);
         }
