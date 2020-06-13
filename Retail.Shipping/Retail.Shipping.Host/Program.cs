@@ -7,6 +7,7 @@
     using NServiceBus.Logging;
     using NServiceBus.MessageMutator;
     using Mutators;
+    using Repositories;
 
     class Program
     {
@@ -17,6 +18,7 @@
             var endpointConfiguration = new EndpointConfiguration("shipping");
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddSingleton(LogManager.GetLogger("Default"));
+            containerSettings.ServiceCollection.AddTransient<IOrderRepository, OrderRepository>();
 
             endpointConfiguration
                 .UseSerialization<NewtonsoftSerializer>();
