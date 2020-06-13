@@ -16,6 +16,7 @@ services:
       retries: 5
 
 
+
   retail-frontend:
     build:
       dockerfile: Dockerfile
@@ -27,6 +28,32 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+
+
+
+  retail-catalog:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Catalog
+    ports:
+      - '5001:80'
+    depends_on:
+      retail-catalog-postgres:
+        condition: service_healthy
+    links:
+      - retail-catalog-postgres
+
+  retail-catalog-postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=retail
+      - POSTGRES_DB=catalog
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
 
   retail-sales:
@@ -42,6 +69,7 @@ services:
     tty: true
 
 
+
   retail-recommendations:
     build:
       dockerfile: Dockerfile
@@ -53,6 +81,7 @@ services:
         - retail-rabbitmq
     stdin_open: true
     tty: true
+
 
 
   retail-shipping:
