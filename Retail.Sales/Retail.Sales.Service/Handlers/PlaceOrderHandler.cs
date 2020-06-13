@@ -24,7 +24,7 @@
             };
 
             await context.Publish(orderPlacedEvent);
-            this.log.Info($"Order {message.OrderId} from customer {message.CustomerId} received and confirmed.");
+            this.log.Info($"Order {message.OrderId} from customer {message.CustomerId} received.");
         }
     }
 }
