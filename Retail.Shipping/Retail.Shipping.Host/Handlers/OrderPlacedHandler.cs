@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using Messages;
+    using Events;
     using Models;
     using Repositories;
 
@@ -29,7 +29,7 @@
             };
 
             await orders.Add(newOrder);
-            this.log.Info($"Shipping received order {message.OrderId}. Waiting for confirmation.");
+            this.log.Info($"Order {message.OrderId} received. Waiting for confirmation.");
         }
     }
 }

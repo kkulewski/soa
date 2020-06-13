@@ -1,12 +1,10 @@
-﻿
-
-namespace Retail.Shipping.Host.Handlers
+﻿namespace Retail.Shipping.Host.Handlers
 {
     using System;
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using Messages;
+    using Events;
     using Repositories;
     using Models;
 
@@ -32,7 +30,7 @@ namespace Retail.Shipping.Host.Handlers
 
             orderToShip.State = OrderState.Shipped;
             await orders.Update(orderToShip);
-            this.log.Info($"Shipped order {orderToShip.OrderId} to customer {orderToShip.CustomerId}");
+            this.log.Info($"Shipped {orderToShip.Products.Count} items to customer {orderToShip.CustomerId} (order {orderToShip.OrderId})");
 
             var shippedOrder = new OrderShipped {OrderId = message.OrderId};
             await context.Publish(shippedOrder);

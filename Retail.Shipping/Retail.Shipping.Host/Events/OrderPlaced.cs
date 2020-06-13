@@ -1,10 +1,9 @@
-﻿namespace Retail.Shipping.Host.Messages
+﻿namespace Retail.Shipping.Host.Events
 {
     using System.Collections.Generic;
-    using NServiceBus;
-    using Retail.Shipping.Host.Models;
+    using Models;
 
-    public class OrderPlaced : IEvent
+    public class OrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }

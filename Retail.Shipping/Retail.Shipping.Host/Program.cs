@@ -30,6 +30,10 @@
                 .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
 
             endpointConfiguration
+                .Conventions()
+                .DefiningEventsAs(type => type.Namespace == "Retail.Shipping.Host.Events");
+
+            endpointConfiguration
                 .UseTransport<RabbitMQTransport>()
                 .UseDirectRoutingTopology(messageType => messageType.Name)
                 .UsePublisherConfirms(true)
