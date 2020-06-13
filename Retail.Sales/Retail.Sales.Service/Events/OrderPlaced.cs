@@ -1,10 +1,9 @@
-﻿namespace Retail.Sales.Service.Messages
+﻿namespace Retail.Sales.Service.Events
 {
-    using NServiceBus;
     using System.Collections.Generic;
     using Models;
 
-    public class OrderPlaced : IEvent
+    public class OrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }

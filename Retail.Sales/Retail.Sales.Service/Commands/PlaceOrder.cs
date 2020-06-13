@@ -1,10 +1,9 @@
-﻿namespace Retail.Sales.Service.Messages
+﻿namespace Retail.Sales.Service.Commands
 {
-    using NServiceBus;
     using System.Collections.Generic;
     using Models;
 
-    public class PlaceOrder : ICommand
+    public class PlaceOrder
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }

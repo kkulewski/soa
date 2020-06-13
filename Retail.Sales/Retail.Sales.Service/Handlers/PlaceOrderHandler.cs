@@ -3,7 +3,8 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using Messages;
+    using Commands;
+    using Events;
 
     public class PlaceOrderHandler : IHandleMessages<PlaceOrder>
     {

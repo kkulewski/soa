@@ -7,6 +7,8 @@
     using NServiceBus.Logging;
     using NServiceBus.MessageMutator;
     using Mutators;
+    using Events;
+    using Commands;
 
     class Program
     {
@@ -26,6 +28,14 @@
 
             endpointConfiguration
                  .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
+
+            endpointConfiguration
+                .Conventions()
+                .DefiningEventsAs(type => type.Namespace == typeof(OrderPlaced).Namespace);
+
+            endpointConfiguration
+                .Conventions()
+                .DefiningCommandsAs(type => type.Namespace == typeof(PlaceOrder).Namespace);
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()

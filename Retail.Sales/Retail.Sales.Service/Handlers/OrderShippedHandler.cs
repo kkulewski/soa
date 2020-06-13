@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using Messages;
+    using Events;
 
     public class OrderShippedHandler : IHandleMessages<OrderShipped>
     {
