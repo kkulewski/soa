@@ -15,6 +15,7 @@ services:
       timeout: 10s
       retries: 5
 
+
   retail-frontend:
     build:
       dockerfile: Dockerfile
@@ -26,6 +27,7 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
+
 
   retail-sales:
     build:
@@ -39,6 +41,7 @@ services:
     stdin_open: true
     tty: true
 
+
   retail-recommendations:
     build:
       dockerfile: Dockerfile
@@ -50,6 +53,7 @@ services:
         - retail-rabbitmq
     stdin_open: true
     tty: true
+
 
   retail-shipping:
     build:
