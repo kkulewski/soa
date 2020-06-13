@@ -1,13 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
-using NServiceBus.Logging;
-using NServiceBus.MessageMutator;
-using Retail.Billing.Host.Mutators;
-
-namespace Retail.Billing.Host
+﻿namespace Retail.Billing.Host
 {
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.DependencyInjection;
+    using NServiceBus;
+    using NServiceBus.Logging;
+    using NServiceBus.MessageMutator;
+    using Mutators;
+    using Events;
+
     class Program
     {
         static async Task Main(string[] args)
@@ -26,6 +27,10 @@ namespace Retail.Billing.Host
 
             endpointConfiguration
                 .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
+
+            endpointConfiguration
+                .Conventions()
+                .DefiningEventsAs(type => type.Namespace == typeof(OrderPlaced).Namespace);
 
             endpointConfiguration
                 .UseTransport<RabbitMQTransport>()

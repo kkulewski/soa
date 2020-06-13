@@ -1,8 +1,6 @@
-﻿namespace Retail.Billing.Host.Messages
+﻿namespace Retail.Billing.Host.Events
 {
-    using NServiceBus;
-
-    public class OrderPlaced : IEvent
+    public class OrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }

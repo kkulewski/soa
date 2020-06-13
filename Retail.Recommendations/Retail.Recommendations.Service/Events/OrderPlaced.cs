@@ -1,13 +1,11 @@
-﻿namespace Retail.Frontend.Web.Messages
+﻿namespace Retail.Recommendations.Service.Events
 {
-    using NServiceBus;
     using System.Collections.Generic;
     using Models;
 
-    public class PlaceOrder : ICommand
+    public class OrderPlaced
     {
         public string OrderId { get; set; }
-        public string CustomerId { get; set; }
         public List<Product> Products { get; set; }
     }
 }

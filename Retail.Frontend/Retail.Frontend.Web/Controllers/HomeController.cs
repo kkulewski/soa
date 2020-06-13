@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
-using Retail.Frontend.Web.Messages;
+using Retail.Frontend.Web.Commands;
 using Retail.Frontend.Web.Models;
 using Retail.Frontend.Web.ViewModels;
 using JsonSerializer = System.Text.Json.JsonSerializer;

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-
-namespace Retail.Recommendations.Service.Handlers
+﻿namespace Retail.Recommendations.Service.Handlers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
-    using Messages;
+    using Events;
 
     public class OrderPlacedHandler : IHandleMessages<OrderPlaced>
     {

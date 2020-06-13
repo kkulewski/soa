@@ -1,6 +1,6 @@
 namespace Retail.Frontend.Web
 {
-    using Messages;
+    using Commands;
     using Mutators;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
@@ -21,6 +21,10 @@ namespace Retail.Frontend.Web
 
                     endpointConfiguration
                         .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
+
+                    endpointConfiguration
+                        .Conventions()
+                        .DefiningCommandsAs(type => type.Namespace == typeof(PlaceOrder).Namespace);
 
                     var transport = endpointConfiguration
                         .UseTransport<RabbitMQTransport>()
