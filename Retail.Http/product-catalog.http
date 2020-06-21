@@ -1,0 +1,32 @@
+###
+
+POST http://localhost:5001/product HTTP/1.1
+content-type: application/json
+
+{
+	"productId": "100",
+	"name": "screwdriver",
+	"description": "flat-blade"
+}
+
+###
+
+POST http://localhost:5001/product HTTP/1.1
+content-type: application/json
+
+{
+	"productId": "101",
+	"name": "hammer",
+	"description": "stainless"
+}
+
+###
+
+POST http://localhost:5001/product HTTP/1.1
+content-type: application/json
+
+{
+	"productId": "102",
+	"name": "saw",
+	"description": "sharp"
+}
