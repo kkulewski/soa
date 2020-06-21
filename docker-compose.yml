@@ -117,5 +117,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./Retail.Recommendations.neo4j
+    ports:
+      - 7474:7474
+      - 7687:7687
     environment: 
       - NEO4J_AUTH=none
