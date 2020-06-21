@@ -105,7 +105,17 @@ services:
     depends_on:
       retail-rabbitmq:
         condition: service_healthy
+      retail-recommendations-neo4j:
+        condition: service_healthy
     links: 
         - retail-rabbitmq
+        - retail-recommendations-neo4j
     stdin_open: true
     tty: true
+
+  retail-recommendations-neo4j:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Recommendations.neo4j
+    environment: 
+      - NEO4J_AUTH=none
