@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NServiceBus;
-using Retail.Frontend.Web.Commands;
+using Retail.Commands;
 using Retail.Frontend.Web.Models;
 using Retail.Frontend.Web.ViewModels;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -18,9 +18,9 @@ namespace Retail.Frontend.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly IMessageSession bus;
+        private readonly IPublishEndpoint bus;
 
-        public HomeController(ILogger<HomeController> logger, IMessageSession bus)
+        public HomeController(ILogger<HomeController> logger, IPublishEndpoint bus)
         {
             this.logger = logger;
             this.bus = bus;
@@ -52,7 +52,7 @@ namespace Retail.Frontend.Web.Controllers
                 Products = products
             };
 
-            await bus.Send(command).ConfigureAwait(false);
+            await bus.Publish<IPlaceOrder>(command);
 
             var vm = new OrderViewModel
             {
