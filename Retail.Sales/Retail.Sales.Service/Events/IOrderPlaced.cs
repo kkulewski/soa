@@ -1,9 +1,9 @@
-﻿namespace Retail.Sales.Service.Commands
+﻿namespace Retail.Events
 {
     using System.Collections.Generic;
-    using Models;
+    using Sales.Service.Models;
 
-    public class PlaceOrder
+    public interface IOrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
