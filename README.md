@@ -3,21 +3,21 @@ Ordinary online retail service with service oriented architecture.
 At some point it may evolve into coarse-grained microservices architecture.
 ## Services
 ### Frontend
-ASP.NET Core MVC app with NServiceBus.  
-Will be switched to React/Vue SPA + API Gateway.
+ASP.NET Core MVC app with MassTransit.  
+Will be switched to SPA composed of micro frontends.
 ### Sales
-NServiceBus console app. Uses saga to process order in each state.
+MassTransit console app. Uses saga to process order in each state.
 ### Billing
-NServiceBus console app. Collects payment for the orders. Uses key-value store to keep state.
+MassTransit console app. Collects payment for the orders. Uses key-value store to keep state.
 ### Shipping
-NServiceBus console app. Ships order products to the customer.
+MassTransit console app. Ships order products to the customer.
 ### Recommendations
-NServiceBus console app. Implements "You may also like" feature for products with graph database.
-### Search
-NServiceBus console app with API. Provides full-text search for product catalog.
+MassTransit console app. Implements "You may also like" feature for products with graph database.
+### Search [TODO]
+MassTransit console app with API. Provides full-text search for product catalog.
 ### Catalog
-ASP.NET Core Web API with NServiceBus. Simple CRUD for products information. Uses Dapper and relational DB.
-### Auth
+ASP.NET Core Web API. Simple CRUD for products information. Uses Dapper and relational DB.
+### Auth [TODO]
 ASP.NET Core Web API. Handles sign up/in and issues RSA encrypted JWT tokens.  
 Will be switched to OAuth 2.0 / OpenID Connect provider.
 
