@@ -1,6 +1,6 @@
-﻿namespace Retail.Billing.Host.Events
+﻿namespace Retail.Events
 {
-    public class OrderPlaced
+    public interface IOrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
