@@ -1,13 +1,10 @@
 ﻿namespace Retail.Shipping.Host
 {
+    using MassTransit;
+    using Retail.Shipping.Host.Consumers;
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
-    using NServiceBus;
-    using NServiceBus.Logging;
-    using NServiceBus.MessageMutator;
-    using Mutators;
-    using Repositories;
 
     class Program
     {
@@ -15,36 +12,30 @@
         {
             Console.Title = "Shipping Service";
 
-            var endpointConfiguration = new EndpointConfiguration("shipping");
-            var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
-            containerSettings.ServiceCollection.AddSingleton(LogManager.GetLogger("Default"));
-            containerSettings.ServiceCollection.AddTransient<IOrderRepository, OrderRepository>();
+            var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+            {
+                cfg.Host("retail-rabbitmq");
 
-            endpointConfiguration
-                .UseSerialization<NewtonsoftSerializer>();
+                cfg.ReceiveEndpoint("event-listener", e =>
+                {
+                    e.Consumer<OrderPlacedConsumer>();
+                    e.Consumer<OrderConfirmedConsumer>();
+                });
+            });
 
-            endpointConfiguration
-                .RegisterMessageMutator(new CommonIncomingNamespaceMutator());
+            var source = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
-            endpointConfiguration
-                .RegisterMessageMutator(new CommonOutgoingNamespaceMutator());
+            await busControl.StartAsync(source.Token);
+            try
+            {
+                Console.WriteLine("Press enter to exit");
 
-            endpointConfiguration
-                .Conventions()
-                .DefiningEventsAs(type => type.Namespace == "Retail.Shipping.Host.Events");
-
-            endpointConfiguration
-                .UseTransport<RabbitMQTransport>()
-                .UseDirectRoutingTopology(messageType => messageType.Name)
-                .UsePublisherConfirms(true)
-                .ConnectionString("host=retail-rabbitmq");
-
-            var endpoint = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
-
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
-            await endpoint.Stop()
-                .ConfigureAwait(false);
+                await Task.Run(() => Console.ReadLine());
+            }
+            finally
+            {
+                await busControl.StopAsync();
+            }
         }
     }
 }

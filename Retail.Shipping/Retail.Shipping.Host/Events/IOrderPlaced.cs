@@ -1,9 +1,9 @@
-﻿namespace Retail.Shipping.Host.Events
+﻿namespace Retail.Events
 {
     using System.Collections.Generic;
-    using Models;
+    using Retail.Shipping.Host.Models;
 
-    public class OrderPlaced
+    public interface IOrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
