@@ -16,7 +16,7 @@
             {
                 cfg.Host("retail-rabbitmq");
 
-                cfg.ReceiveEndpoint("event-listener", e =>
+                cfg.ReceiveEndpoint("shipping", e =>
                 {
                     e.Consumer<OrderPlacedConsumer>();
                     e.Consumer<OrderConfirmedConsumer>();
