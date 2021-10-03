@@ -16,8 +16,7 @@
         {
             @foreach (var product in Model)
             {
-                @await Html.PartialAsync("_OrderPartial", product)
-                ;
+                @await Html.PartialAsync("_OrderPartial", product);
             }
         }
     </div>

@@ -4,24 +4,20 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Retail.Commands;
-using Retail.Frontend.Web.Models;
 using Retail.Frontend.Web.ViewModels;
 
 namespace Retail.Frontend.Web.Controllers
 {
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly ISendEndpointProvider sendEndpointProvider;
 
-        public HomeController(ILogger<HomeController> logger, ISendEndpointProvider sendEndpointProvider)
+        public HomeController(ILogger<HomeController> logger)
         {
             this.logger = logger;
-            this.sendEndpointProvider = sendEndpointProvider;
         }
 
         public async Task<IActionResult> Index()
@@ -35,19 +31,10 @@ namespace Retail.Frontend.Web.Controllers
             return View(vm);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PlaceOrder(ProductViewModel productVm)
+        [HttpGet("{orderId}")]
+        public IActionResult OrderPlaced(string orderId)
         {
-            var orderId = Guid.NewGuid().ToString();
-            var customerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString();
-            var products = new List<Product> { new Product { ProductId = productVm.ProductId } };
-
-            var endpoint = await this.sendEndpointProvider.GetSendEndpoint(new Uri("queue:sales"));
-            await endpoint.Send<IPlaceOrder>(new { orderId, customerId, products });
-
-            this.logger.LogInformation($"Order {orderId} submitted");
-
-            return View(new OrderViewModel { OrderId = orderId, CustomerId = customerId, Products = products });
+            return View(new OrderViewModel { OrderId = orderId });
         }
 
         public IActionResult Privacy()

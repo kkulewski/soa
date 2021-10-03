@@ -2,7 +2,6 @@
 
 <div class="col-sm-4">
     <div class="card border-success mb-3">
-        <form action="/home/placeorder" method="POST">
             <h5 class="card-header">@Model.Name</h5>
             <div class="card-body">
                 <p class="card-text">
@@ -13,12 +12,11 @@
                 </p>
             </div>
             <div class="card-footer text-muted">
-                <input type="submit" class="btn btn-outline-success" value="Place order" />
+                @Html.RenderFrom("http://retail-sales/order/" + @Model.ProductId)
             </div>
 
             @Html.HiddenFor(m => Model.ProductId)
             @Html.HiddenFor(m => Model.Name)
             @Html.HiddenFor(m => Model.Description)
-        </form>
     </div>
 </div>

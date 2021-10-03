@@ -1,4 +1,4 @@
-﻿namespace Retail.Sales.Service.Models
+﻿namespace Retail.Sales.Models
 {
     public class Product
     {
