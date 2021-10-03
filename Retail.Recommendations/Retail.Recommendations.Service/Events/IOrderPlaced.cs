@@ -1,9 +1,9 @@
-﻿namespace Retail.Recommendations.Service.Events
+﻿namespace Retail.Events
 {
     using System.Collections.Generic;
-    using Models;
+    using Recommendations.Service.Models;
 
-    public class OrderPlaced
+    public interface IOrderPlaced
     {
         public string OrderId { get; set; }
         public List<Product> Products { get; set; }

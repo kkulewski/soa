@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NServiceBus;
-using Retail.Frontend.Web.Commands;
+using Retail.Commands;
 using Retail.Frontend.Web.Models;
 using Retail.Frontend.Web.ViewModels;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Retail.Frontend.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly IMessageSession bus;
+        private readonly ISendEndpointProvider sendEndpointProvider;
 
-        public HomeController(ILogger<HomeController> logger, IMessageSession bus)
+        public HomeController(ILogger<HomeController> logger, ISendEndpointProvider sendEndpointProvider)
         {
             this.logger = logger;
-            this.bus = bus;
+            this.sendEndpointProvider = sendEndpointProvider;
         }
 
         public async Task<IActionResult> Index()
@@ -40,28 +38,16 @@ namespace Retail.Frontend.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(ProductViewModel productVm)
         {
-            var products = new List<Product>
-            {
-                new Product { ProductId = productVm.ProductId }
-            };
+            var orderId = Guid.NewGuid().ToString();
+            var customerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString();
+            var products = new List<Product> { new Product { ProductId = productVm.ProductId } };
 
-            var command = new PlaceOrder
-            {
-                OrderId = Guid.NewGuid().ToString(),
-                CustomerId = ((uint)this.HttpContext.Connection.RemoteIpAddress.GetHashCode()).ToString(),
-                Products = products
-            };
+            var endpoint = await this.sendEndpointProvider.GetSendEndpoint(new Uri("queue:sales"));
+            await endpoint.Send<IPlaceOrder>(new { orderId, customerId, products });
 
-            await bus.Send(command).ConfigureAwait(false);
+            this.logger.LogInformation($"Order {orderId} submitted");
 
-            var vm = new OrderViewModel
-            {
-                OrderId = command.OrderId,
-                CustomerId = command.CustomerId,
-                Products = command.Products
-            };
-
-            return View(vm);
+            return View(new OrderViewModel { OrderId = orderId, CustomerId = customerId, Products = products });
         }
 
         public IActionResult Privacy()

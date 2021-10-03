@@ -1,9 +1,9 @@
-﻿namespace Retail.Commands
+﻿namespace Retail.Events
 {
     using System.Collections.Generic;
-    using Retail.Frontend.Web.Models;
+    using Sales.Service.Models;
 
-    public class PlaceOrder : IPlaceOrder
+    public interface IOrderPlaced
     {
         public string OrderId { get; set; }
         public string CustomerId { get; set; }
