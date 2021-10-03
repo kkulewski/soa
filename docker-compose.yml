@@ -54,6 +54,13 @@ services:
       timeout: 5s
       retries: 5
 
+  retail-catalog-frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Catalog.Frontend
+    ports:
+      - '6001:80'
+
 
 
   retail-sales:
@@ -83,7 +90,7 @@ services:
         - retail-rabbitmq
     stdin_open: true
     tty: true
-  
+
 
 
   retail-shipping:
