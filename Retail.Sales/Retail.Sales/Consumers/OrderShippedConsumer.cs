@@ -1,4 +1,4 @@
-﻿namespace Retail.Sales.Service.Consumers
+﻿namespace Retail.Sales.Consumers
 {
     using System;
     using System.Threading.Tasks;

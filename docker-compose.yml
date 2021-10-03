@@ -60,6 +60,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./Retail.Sales
+    ports:
+      - '5002:80'
     depends_on:
       retail-rabbitmq:
         condition: service_healthy
