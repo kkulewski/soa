@@ -38,12 +38,12 @@ services:
     ports:
       - '5001:80'
     depends_on:
-      retail-catalog-postgres:
+      retail-catalog-database:
         condition: service_healthy
     links:
-      - retail-catalog-postgres
+      - retail-catalog-database
 
-  retail-catalog-postgres:
+  retail-catalog-database:
     image: 'postgres:latest'
     environment:
       - POSTGRES_PASSWORD=retail
@@ -116,14 +116,14 @@ services:
         condition: service_healthy
     links: 
         - retail-rabbitmq
-        - retail-recommendations-neo4j
+        - retail-recommendations-database
     stdin_open: true
     tty: true
 
-  retail-recommendations-neo4j:
+  retail-recommendations-database:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Recommendations.neo4j
+      context: ./Retail.Recommendations.Database
     ports:
       - 7474:7474
       - 7687:7687
