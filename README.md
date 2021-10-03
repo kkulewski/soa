@@ -11,10 +11,12 @@ Will be switched to SPA composed of micro frontends.
 ASP.NET Core Web API with MassTransit. Uses saga to process order in each state.
 ### Retail.Billing
 MassTransit console app. Collects payment for the orders. Uses key-value store to keep state.
-### Retail.Billing.Database
+### Retail.Billing.Database [TODO]
 Redis key-value store.
 ### Retail.Shipping
-MassTransit console app. Ships order products to the customer. Uses NoSQL database.
+MassTransit console app. Ships order products to the customer. Manages state in NoSQL database.
+### Retail.Shipping.Database [TODO]
+MongoDB NoSQL database.
 ### Retail.Catalog
 ASP.NET Core Web API. Simple CRUD for products information. Uses Dapper with relational database.
 ### Retail.Catalog.Database
@@ -30,3 +32,5 @@ ELK stack. Provides full-text search for various services.
 ### Retail.Auth [TODO]
 ASP.NET Core Web API. Handles sign up/in and issues RSA encrypted JWT tokens.  
 Will be switched to OAuth 2.0 / OpenID Connect provider.
+### Retail.Http
+Example HTTP requests to various services.
