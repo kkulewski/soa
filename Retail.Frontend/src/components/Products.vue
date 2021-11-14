@@ -21,7 +21,7 @@
                         </p>
                     </div>
                     <div class="card-footer text-muted">
-                        <p>buy button</p>
+                      <sales-buy :productId="product.productId"></sales-buy>
                     </div>
             </div>
         </div>
@@ -46,7 +46,11 @@ export default {
     const response = await fetch("http://localhost:5001/product");
     this.products = await response.json();
   },
-
+  async mounted() {
+    let salesBuyWebComponent = document.createElement('script')
+    salesBuyWebComponent.setAttribute('src', 'http://localhost:6002/sales-buy.js')
+    document.head.appendChild(salesBuyWebComponent)
+  },
 }
 </script>
 
