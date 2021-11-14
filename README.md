@@ -5,10 +5,11 @@ At some point it may evolve into coarse-grained microservices architecture.
 ### Retail.Queue
 RabbitMQ with custom configuration. Transport for MassTransit service bus.
 ### Retail.Frontend
-ASP.NET Core MVC app with MassTransit.  
-Will be switched to SPA composed of micro frontends.
+SPA in Vue.js 2. Combines multiple microfrontends into a single UI for the application. 
 ### Retail.Sales
 ASP.NET Core Web API with MassTransit. Uses saga to process order in each state.
+### Retail.Sales.Microfrontend
+WebComponents in vanilla JavaScript, served with nginx. Provides fragments (e.g. "Buy button") for other views.
 ### Retail.Billing
 MassTransit console app. Collects payment for the orders. Uses key-value store to keep state.
 ### Retail.Billing.Database [TODO]
