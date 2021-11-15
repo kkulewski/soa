@@ -1,6 +1,9 @@
 <template>
 
   <div class="text-center">
+      <p>
+        <sales-cart></sales-cart>
+      </p>
       <h1 class="display-4">Welcome</h1>
       <br/>
       <div class="row justify-content-md-center">
@@ -47,6 +50,10 @@ export default {
     this.products = await response.json();
   },
   async mounted() {
+    let salesCartWebComponent = document.createElement('script')
+    salesCartWebComponent.setAttribute('src', 'http://localhost:6002/sales-cart.js')
+    document.head.appendChild(salesCartWebComponent)
+
     let salesBuyWebComponent = document.createElement('script')
     salesBuyWebComponent.setAttribute('src', 'http://localhost:6002/sales-buy.js')
     document.head.appendChild(salesBuyWebComponent)

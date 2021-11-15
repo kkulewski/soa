@@ -17,7 +17,7 @@ class SalesBuy extends HTMLElement
 
     createBuyButton() {
         return this.product.isAvailable
-        ? `<button type="button">Buy for $${this.product.price}</button>`
+        ? `<button type="button">Add to cart ($${this.product.price})</button>`
         : `<button type="button" disabled>Not available ($${this.product.price})</button>`;
     }
 
@@ -52,6 +52,12 @@ class SalesBuy extends HTMLElement
         const buyButton = this.querySelector("button");
         buyButton.style.backgroundColor = "#ADFBB0";
         buyButton.innerText = "Added to cart!";
+
+        const itemAddedEvent = new CustomEvent("sales:item_added_to_cart", {
+            bubbles: true,
+            detail: { productId: this.product.productId }});
+        this.dispatchEvent(itemAddedEvent);
+
         setTimeout(() => { this.render() }, 3000);
     }
 
