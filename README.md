@@ -27,13 +27,13 @@ ASP.NET Core Web API. Simple CRUD for products information. Uses Dapper with rel
 PostgreSQL relational database.
 ### Retail.Catalog.Frontend
 Svelte UI for product catalog CRUD operations.
-### Retail.Recommendations
+### Retail.Recommendations [TODO]
 MassTransit console app. Implements "You may also like" feature for products with graph database.
 ### Retail.Recommendations.Database
 Neo4j graph database.
 ### Retail.Search [TODO]
 ELK stack. Provides full-text search for various services.
-### Retail.Auth [TODO]
+### Retail.Auth
 IdentityServer4. Handles authentication and authorization with RSA256 signed JWT.  
 RSA is preffered over HMAC, as such tokens can be verified by other services which cached Auth's public key.
 ### Retail.Http

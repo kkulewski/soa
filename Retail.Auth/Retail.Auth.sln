@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{3A8C2F3C-EB5F-44AF-94C5-BD9A759AF4E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{3A8C2F3C-EB5F-44AF-94C5-BD9A759AF4E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptClient", "JavaScriptClient\JavaScriptClient.csproj", "{73F48AE8-BA9C-4FF1-8811-B166B06CC30B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavaScriptClient", "JavaScriptClient\JavaScriptClient.csproj", "{73F48AE8-BA9C-4FF1-8811-B166B06CC30B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{05B35D4B-B65E-4084-945B-21A5A74F480D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{05B35D4B-B65E-4084-945B-21A5A74F480D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{74EDE06F-1B01-4063-9C73-BA7D2E94C494}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{74EDE06F-1B01-4063-9C73-BA7D2E94C494}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3A8C2F3C-EB5F-44AF-94C5-BD9A759AF4E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +69,11 @@ Global
 		{74EDE06F-1B01-4063-9C73-BA7D2E94C494}.Release|x64.Build.0 = Release|Any CPU
 		{74EDE06F-1B01-4063-9C73-BA7D2E94C494}.Release|x86.ActiveCfg = Release|Any CPU
 		{74EDE06F-1B01-4063-9C73-BA7D2E94C494}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E3BB581-8443-4E74-86E1-79F3BC69FDFC}
 	EndGlobalSection
 EndGlobal
