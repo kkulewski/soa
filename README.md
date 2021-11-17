@@ -34,7 +34,7 @@ Neo4j graph database.
 ### Retail.Search [TODO]
 ELK stack. Provides full-text search for various services.
 ### Retail.Auth [TODO]
-ASP.NET Core Web API. Handles sign up/in and issues RSA encrypted JWT tokens.  
-Will be switched to OAuth 2.0 / OpenID Connect provider.
+IdentityServer4. Handles authentication and authorization with RSA256 signed JWT.  
+RSA is preffered over HMAC, as such tokens can be verified by other services which cached Auth's public key.
 ### Retail.Http
 Example HTTP requests to various services.
