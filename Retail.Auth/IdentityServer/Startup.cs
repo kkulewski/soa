@@ -33,12 +33,14 @@ namespace IdentityServer
                 options.Events.RaiseSuccessEvents = true;
 
                 options.IssuerUri = "http://retail-auth";
+                options.EmitStaticAudienceClaim = true;
             })
                 .AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
             builder.AddInMemoryIdentityResources(Config.IdentityResources);
             builder.AddInMemoryApiScopes(Config.ApiScopes);
+            builder.AddInMemoryApiResources(Config.ApiResources);
             builder.AddInMemoryClients(Config.Clients);
             builder.AddProfileService<RetailProfileService>();
 

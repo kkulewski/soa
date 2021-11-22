@@ -36,11 +36,7 @@ namespace Api
                 {
                     options.Authority = "http://localhost:7001";
                     options.RequireHttpsMetadata = false;
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
+                    options.Audience = "retail";
                 });
 
             services.AddAuthorization(options =>
