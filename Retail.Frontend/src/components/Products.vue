@@ -8,7 +8,10 @@
       <br/>
       <div class="row justify-content-md-center">
 
-        <div v-if="products.length == 0">
+        <div v-if="!isAuthenticated">
+          <p>Log in to browse product catalog</p>
+        </div>
+        <div v-else-if="products.length == 0">
           <p>Product catalog is empty</p>
         </div>
 
@@ -35,6 +38,8 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth.service';
+
 export default {
   name: 'Products',
   props: {
@@ -42,12 +47,20 @@ export default {
   },
   data () {
     return {
+      auth: null,
+      isAuthenticated: false,
       products: []
     }
   },
   async created () {
-    const response = await fetch("http://localhost:5001/product");
-    this.products = await response.json();
+    this.auth = new AuthService();
+    this.isAuthenticated = await this.auth.isAuthenticated();
+    if (this.isAuthenticated) {
+      this.auth = new AuthService();
+      const userToken = await this.auth.getAccessToken();
+      const response = await fetch("http://localhost:5001/product", { headers: { 'Authorization': `Bearer ${userToken}`} });
+      this.products = await response.json();
+    }
   },
   async mounted() {
     let salesCartWebComponent = document.createElement('script')
@@ -57,7 +70,7 @@ export default {
     let salesBuyWebComponent = document.createElement('script')
     salesBuyWebComponent.setAttribute('src', 'http://localhost:6002/sales-buy.js')
     document.head.appendChild(salesBuyWebComponent)
-  },
+  }
 }
 </script>
 

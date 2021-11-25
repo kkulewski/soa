@@ -23,10 +23,21 @@
     </header>
 
     <div class="container">
+      <Home/>
+    </div>
+
+    <br/>
+
+    <div class="border-top"></div>
+
+    <br/>
+
+    <div class="container">
       <Products msg="Retail"/>
     </div>
 
     <footer class="border-top footer text-muted">
+      <br/>
       <div class="container">
         &copy; 2021 - Retail
       </div>
@@ -37,11 +48,13 @@
 
 <script>
 import Products from './components/Products.vue'
+import Home from './components/Home.vue'
 
 export default {
   name: 'App',
   components: {
-    Products
+    Products,
+    Home
   }
 }
 </script>
