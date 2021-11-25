@@ -19,8 +19,8 @@ namespace IdentityServer
 
             var extraClaims = new List<Claim>
             {
-                new Claim("retail.user_id", userId),
-                new Claim("retail.user_email", user.Claims.First(x => x.Type == JwtClaimTypes.Email).Value),
+                new Claim("retail_user_id", userId),
+                new Claim("retail_user_email", user.Claims.First(x => x.Type == JwtClaimTypes.Email).Value),
             };
 
             context.IssuedClaims.AddRange(extraClaims);

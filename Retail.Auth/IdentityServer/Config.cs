@@ -10,6 +10,15 @@ namespace IdentityServer
 {
     public static class Config
     {
+        public static IEnumerable<ApiResource> ApiResources =>
+            new ApiResource[]
+            {
+                new ApiResource("retail", "Retail APIs")
+                {
+                    Scopes = { "retail" }
+                }
+            };
+
         public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             {
@@ -28,31 +37,14 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientId = "client",
-
-                    // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-
-                    // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
-                    // scopes that client has access to
-                    AllowedScopes = { "retail" }
-                },
-
-                new Client
-                {
                     ClientId = "js",
                     ClientName = "JavaScript Client",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
 
-                    RedirectUris =           { "https://localhost:5003/callback.html" },
-                    PostLogoutRedirectUris = { "https://localhost:5003/index.html" },
-                    AllowedCorsOrigins =     { "https://localhost:5003" },
+                    RedirectUris =           { "http://localhost:5000/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:5000" },
+                    AllowedCorsOrigins =     { "http://localhost:5000" },
 
                     AllowedScopes =
                     {

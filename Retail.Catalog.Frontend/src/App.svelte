@@ -2,7 +2,7 @@
 	export let products;
 
 	async function getProducts () {
-		const res = await fetch('http://localhost:5001/product', { method: 'GET'} )
+		const res = await fetch('http://localhost:5001/productadmin', { method: 'GET'} )
 		products = await res.json()
 	}
 
@@ -18,7 +18,7 @@
 	}
 
 	async function addProduct() {
-		const res = await fetch('http://localhost:5001/product', {
+		const res = await fetch('http://localhost:5001/productadmin', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(newProduct)

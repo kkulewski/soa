@@ -6,6 +6,7 @@ At some point it may evolve into coarse-grained microservices architecture.
 RabbitMQ with custom configuration. Transport for MassTransit service bus.
 ### Retail.Frontend
 SPA in Vue.js 2. Combines multiple microfrontends into a single UI for the application.  
+Uses OIDC-Client to obtain access and identity tokens.  
 ![Microfrontends](01_microfrontends.png) 
 ### Retail.Sales
 ASP.NET Core Web API with MassTransit. Uses saga to process order in each state.
@@ -26,7 +27,7 @@ ASP.NET Core Web API. Simple CRUD for products information. Uses Dapper with rel
 ### Retail.Catalog.Database
 PostgreSQL relational database.
 ### Retail.Catalog.Frontend
-Svelte UI for product catalog CRUD operations.
+Svelte UI for product catalog CRUD operations. Uses no-auth endpoint.
 ### Retail.Recommendations [TODO]
 MassTransit console app. Implements "You may also like" feature for products with graph database.
 ### Retail.Recommendations.Database
@@ -34,7 +35,7 @@ Neo4j graph database.
 ### Retail.Search [TODO]
 ELK stack. Provides full-text search for various services.
 ### Retail.Auth
-IdentityServer4. Handles authentication and authorization with RSA256 signed JWT.  
+IdentityServer4. Handles OICD authentication and OAuth 2.0 authorization with RSA256 signed JWT.  
 RSA is preffered over HMAC, as such tokens can be verified by other services which cached Auth's public key.
 ### Retail.Http
 Example HTTP requests to various services.

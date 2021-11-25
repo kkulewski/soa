@@ -131,3 +131,19 @@ services:
       - 7687:7687
     environment: 
       - NEO4J_AUTH=none
+
+
+
+  retail-auth:
+    build:
+      dockerfile: Dockerfile
+      context: ./Retail.Auth
+    ports:
+      - '7001:80'
+    depends_on:
+      retail-rabbitmq:
+        condition: service_healthy
+    links: 
+        - retail-rabbitmq
+    stdin_open: true
+    tty: true
