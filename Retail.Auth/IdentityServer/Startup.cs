@@ -33,7 +33,6 @@ namespace IdentityServer
                 options.Events.RaiseSuccessEvents = true;
 
                 options.IssuerUri = "http://retail-auth";
-                options.EmitStaticAudienceClaim = true;
             })
                 .AddTestUsers(TestUsers.Users);
 

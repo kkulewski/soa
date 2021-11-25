@@ -28,6 +28,7 @@ namespace Retail.Catalog.Web
                 {
                     options.Authority = "http://retail-auth";
                     options.RequireHttpsMetadata = false;
+                    options.Audience = "retail";
                 });
 
             services.AddAuthorization(options =>
@@ -65,7 +66,7 @@ namespace Retail.Catalog.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireAuthorization("ApiScope");
+                endpoints.MapControllers();
             });
 
             this.EnsureProductTableExists();
