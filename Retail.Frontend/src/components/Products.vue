@@ -28,7 +28,7 @@
             </p>
           </div>
           <div class="card-footer text-muted">
-            <sales-buy :productId="product.productId"></sales-buy>
+            <sales-buy productId="{ product.productId }"></sales-buy>
           </div>
         </div>
       </div>
