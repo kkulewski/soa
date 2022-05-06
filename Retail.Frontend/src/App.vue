@@ -1,15 +1,35 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import Home from "./components/Home.vue";
+import Products from "./components/Products.vue";
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <HelloWorld msg="Hello world!" />
-    </div>
-  </header>
+  <div id="app">
+    <br />
 
-  <main></main>
+    <div class="border-top"></div>
+
+    <br />
+
+    <div class="container">
+      <Home msg="Retail" />
+    </div>
+
+    <br />
+
+    <div class="border-top"></div>
+
+    <br />
+
+    <div class="container">
+      <Products msg="Product catalog" />
+    </div>
+
+    <footer class="border-top footer text-muted">
+      <br />
+      <div class="container">&copy; 2022 - Retail</div>
+    </footer>
+  </div>
 </template>
 
 <style>
