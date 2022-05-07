@@ -4,14 +4,14 @@ class SalesCart extends HTMLElement
 
     connectedCallback() {
         window.addEventListener("sales:item_added_to_cart", e => {
-            this.products.push(e.detail.productId);
+            this.products.push(e.detail.product);
             this.render();
         });
         this.render();
     }
 
     render() {
-        this.innerHTML = `${this.products.length} products in the cart`
+        this.innerHTML = `${this.products.length} products in the cart. Total: $${this.products.reduce((sum, product) => sum + product.price, 0).toFixed(2)}`
     }
 }
 

@@ -5,7 +5,7 @@ class SalesBuy extends HTMLElement
     productId = null;
 
     async connectedCallback() {
-        this.productId = this.getAttribute("productId");
+        this.productId = this.getAttribute("productid");
         await this.render();
     }
 
@@ -22,16 +22,16 @@ class SalesBuy extends HTMLElement
     }
 
     async fetchProductData() {
-        const response = await fetch(`http://localhost:5002/products/${this.productId}`, { method: 'GET'} )
+        const response = await fetch(`http://localhost:5002/products/${this.productId}`, { method: 'GET' } )
         this.product = await response.json()
     }
 
     async placeOrder() {
         this.blockBuyButton();
         const response = await fetch('http://localhost:5002/orders', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ productId: this.productId })
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: this.productId })
         });
         
         if (response.status == 200) {
@@ -55,7 +55,7 @@ class SalesBuy extends HTMLElement
 
         const itemAddedEvent = new CustomEvent("sales:item_added_to_cart", {
             bubbles: true,
-            detail: { productId: this.product.productId }});
+            detail: { product: this.product }});
         this.dispatchEvent(itemAddedEvent);
 
         setTimeout(() => { this.render() }, 3000);

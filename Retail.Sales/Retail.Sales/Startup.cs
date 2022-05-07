@@ -22,6 +22,23 @@ namespace Retail.Sales
         {
             services.AddCors();
 
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = "http://retail-auth";
+                    options.Audience = "retail";
+                    options.RequireHttpsMetadata = false;
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "retail");
+                });
+            });
+
             services.AddControllers();
 
             services.AddMassTransit(x =>
@@ -59,11 +76,14 @@ namespace Retail.Sales
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints
+                .MapControllers();
+                //.RequireAuthorization("ApiScope");
             });
         }
     }
