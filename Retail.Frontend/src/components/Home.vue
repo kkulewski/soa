@@ -29,7 +29,7 @@ export default defineComponent({
     if (this.isAuthenticated) {
       this.auth.getUser().then((user) => {
         if (user) {
-          this.username = user.profile.sub;
+          this.username = user.profile["retail_user_email"];
         }
       });
     }
@@ -40,7 +40,7 @@ export default defineComponent({
       this.isAuthenticated = true;
       this.auth.getUser().then((user) => {
         if (user) {
-          this.username = user.profile.sub;
+          this.username = user.profile["retail_user_email"];
         }
       });
     },
