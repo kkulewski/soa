@@ -1,15 +1,15 @@
 ﻿namespace Retail.Sales.Consumers
 {
-    using System;
     using System.Threading.Tasks;
     using Events;
     using MassTransit;
+    using Serilog;
 
     public class OrderShippedConsumer : IConsumer<IOrderShipped>
     {
         public Task Consume(ConsumeContext<IOrderShipped> context)
         {
-            Console.WriteLine($"Order {context.Message.OrderId} processing finished.");
+            Log.Information($"Order {context.Message.OrderId} processing finished.");
             return Task.CompletedTask;
         }
     }

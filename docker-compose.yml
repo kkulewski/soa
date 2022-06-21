@@ -127,8 +127,8 @@ services:
       dockerfile: Dockerfile
       context: ./Retail.Recommendations.Database
     ports:
-      - 7474:7474
-      - 7687:7687
+      - '7474:7474'
+      - '7687:7687'
     environment: 
       - NEO4J_AUTH=none
 
@@ -147,3 +147,30 @@ services:
         - retail-rabbitmq
     stdin_open: true
     tty: true
+
+
+
+  retail-elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    ports:
+      - '9200:9200'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  retail-kibana:
+    image: docker.elastic.co/kibana/kibana:7.11.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://retail-elastic:9200
+    depends_on:
+      retail-elastic:
+        condition: service_healthy
+    links:
+        - retail-elastic
+    ports:
+      - '5601:5601'
