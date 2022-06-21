@@ -9,7 +9,7 @@ SPA in Vue.js 3. Combines multiple microfrontends into a single UI for the appli
 Uses OIDC-Client to obtain access and identity tokens.  
 ![Microfrontends](01_microfrontends.png) 
 ### Retail.Sales
-ASP.NET Core Web API with MassTransit. Uses saga to process order in each state.
+ASP.NET Core Web API with MassTransit. Uses saga to process order in each state. Pushes logs to ElasticSearch with Serilog.
 ### Retail.Sales.Microfrontend
 WebComponents in vanilla JavaScript, served with nginx. Provides fragments for other views.  
 - `<sales-buy>` - displays "buy button" for product with given ID, emits `product_added_to_cart` event
@@ -32,8 +32,10 @@ Svelte UI for product catalog CRUD operations. Uses no-auth endpoint.
 MassTransit console app. Implements "You may also like" feature for products with graph database.
 ### Retail.Recommendations.Database
 Neo4j graph database.
-### Retail.Search [TODO]
-ELK stack. Provides full-text search for various services.
+### Retail.Elastic
+ELK stack - ElasticSearch. Used to aggregate logs from services.
+### Retail.Kibana
+ELK stack - Kibana. Used to browse logs from services.
 ### Retail.Auth
 IdentityServer4. Handles OICD authentication and OAuth 2.0 authorization with RSA256 signed JWT.  
 RSA is preffered over HMAC, as such tokens can be verified by other services which cached Auth's public key.
