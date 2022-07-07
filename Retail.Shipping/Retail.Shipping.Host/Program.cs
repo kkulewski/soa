@@ -1,6 +1,9 @@
 ﻿namespace Retail.Shipping.Host
 {
     using MassTransit;
+    using OpenTelemetry;
+    using OpenTelemetry.Trace;
+    using OpenTelemetry.Resources;
     using Retail.Shipping.Host.Consumers;
     using System;
     using System.Threading;
@@ -11,6 +14,18 @@
         static async Task Main(string[] args)
         {
             Console.Title = "Shipping Service";
+
+            using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+                .AddSource("Retail.Shipping")
+                .AddSource("MassTransit")
+                .AddJaegerExporter(o =>
+                {
+                    o.AgentHost = "retail-jaeger";
+                    o.AgentPort = 6831;
+                })
+                .AddConsoleExporter()
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName: "Retail.Shipping", serviceVersion: "1.0.0"))
+                .Build();
 
             var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {

@@ -68,6 +68,7 @@ namespace Retail.Sales
                         o.AgentPort = 6831;
                     })
                     .AddSource("Retail.Sales")
+                    .AddSource("MassTransit")
                     .SetResourceBuilder(
                         ResourceBuilder.CreateDefault().AddService(serviceName: "Retail.Sales", serviceVersion: "1.0.0"))
                     .AddHttpClientInstrumentation()
