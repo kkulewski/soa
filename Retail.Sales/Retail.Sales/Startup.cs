@@ -55,8 +55,6 @@ namespace Retail.Sales
                     });
                 });
             });
-
-            services.AddMassTransitHostedService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
