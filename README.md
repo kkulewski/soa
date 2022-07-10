@@ -39,5 +39,7 @@ ELK stack - Kibana. Used to browse logs from services.
 ### Retail.Auth
 IdentityServer4. Handles OICD authentication and OAuth 2.0 authorization with RSA256 signed JWT.  
 RSA is preffered over HMAC, as such tokens can be verified by other services which cached Auth's public key.
+### Retail.Jaeger
+Jaeger instance. Used to collect and visualize traces of inter-service requests in OpenTelemetry format.
 ### Retail.Http
 Example HTTP requests to various services.

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Retail.Sales.Consumers;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace Retail.Sales
 {
@@ -54,6 +56,24 @@ namespace Retail.Sales
                         e.Consumer<OrderShippedConsumer>();
                     });
                 });
+            });
+
+            services.AddOpenTelemetryTracing(tracerProviderBuilder =>
+            {
+                tracerProviderBuilder
+                    .AddConsoleExporter()
+                    .AddJaegerExporter(o =>
+                    {
+                        o.AgentHost = "retail-jaeger";
+                        o.AgentPort = 6831;
+                    })
+                    .AddSource("Retail.Sales")
+                    .AddSource("MassTransit")
+                    .SetResourceBuilder(
+                        ResourceBuilder.CreateDefault().AddService(serviceName: "Retail.Sales", serviceVersion: "1.0.0"))
+                    .AddHttpClientInstrumentation()
+                    .AddAspNetCoreInstrumentation()
+                    .AddSqlClientInstrumentation();
             });
         }
 
