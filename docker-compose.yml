@@ -12,8 +12,8 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:15672"]
       interval: 10s
-      timeout: 10s
-      retries: 10
+      timeout: 100s
+      retries: 20
 
 
 
@@ -46,8 +46,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      timeout: 10s
-      retries: 10
+      timeout: 100s
+      retries: 20
 
   retail-catalog-frontend:
     build:
@@ -166,8 +166,9 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9200"]
       interval: 10s
-      timeout: 10s
-      retries: 10
+      timeout: 100s
+      retries: 20
+    mem_limit: 2g
 
   retail-kibana:
     image: docker.elastic.co/kibana/kibana:7.11.0
@@ -180,6 +181,7 @@ services:
         - retail-elastic
     ports:
       - '5601:5601'
+    mem_limit: 1g
 
 
 
