@@ -20,7 +20,7 @@ MassTransit console app. Collects payment for the orders. Uses key-value store t
 Redis key-value store.
 ### Retail.Shipping
 MassTransit console app. Ships order products to the customer. Manages state in NoSQL database.
-### Retail.Shipping.Database [TODO]
+### Retail.Shipping.Database
 MongoDB NoSQL database.
 ### Retail.Catalog
 ASP.NET Core Web API. Simple CRUD for products information. Uses Dapper with relational database.
