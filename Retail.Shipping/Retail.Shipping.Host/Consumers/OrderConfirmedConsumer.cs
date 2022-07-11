@@ -11,7 +11,7 @@
     {
         public async Task Consume(ConsumeContext<IOrderConfirmed> context)
         {
-            var orders = new OrderRepository();
+            var orders = new MongoOrderRepository();
 
             var orderToShip = await orders.GetById(context.Message.OrderId);
 
