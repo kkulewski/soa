@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Retail.Recommendations.Service/Retail.Recommendations.Service.csproj", "Retail.Recommendations.Service/"]
+COPY ["Retail.Recommendations.Service.csproj", "Retail.Recommendations.Service/"]
 RUN dotnet restore "Retail.Recommendations.Service/Retail.Recommendations.Service.csproj"
 COPY . .
 WORKDIR "/src/Retail.Recommendations.Service"

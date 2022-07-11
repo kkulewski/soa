@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["IdentityServer/IdentityServer.csproj", "IdentityServer/"]
+COPY [IdentityServer.csproj", "IdentityServer/"]
 RUN dotnet restore "IdentityServer/IdentityServer.csproj"
 COPY . .
 WORKDIR "/src/IdentityServer"
