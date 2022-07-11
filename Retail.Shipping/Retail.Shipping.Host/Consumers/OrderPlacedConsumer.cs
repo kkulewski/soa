@@ -19,7 +19,8 @@
                 State = OrderState.Received
             };
 
-            await new OrderRepository().Add(newOrder);
+            await new MongoOrderRepository().Add(newOrder);
+
             Console.WriteLine($"Order {context.Message.OrderId} received. Waiting for confirmation.");
         }
     }
