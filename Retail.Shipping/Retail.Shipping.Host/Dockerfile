@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Retail.Shipping.Host/Retail.Shipping.Host.csproj", "Retail.Shipping.Host/"]
+COPY ["Retail.Shipping.Host.csproj", "Retail.Shipping.Host/"]
 RUN dotnet restore "Retail.Shipping.Host/Retail.Shipping.Host.csproj"
 COPY . .
 WORKDIR "/src/Retail.Shipping.Host"

@@ -13,7 +13,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:15672"]
       interval: 10s
       timeout: 10s
-      retries: 5
+      retries: 10
 
 
 
@@ -29,7 +29,7 @@ services:
   retail-catalog:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Catalog
+      context: ./Retail.Catalog/Retail.Catalog.Web
     ports:
       - '5001:80'
     depends_on:
@@ -46,8 +46,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
 
   retail-catalog-frontend:
     build:
@@ -61,7 +61,7 @@ services:
   retail-sales:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Sales
+      context: ./Retail.Sales/Retail.Sales
     ports:
       - '5002:80'
     depends_on:
@@ -81,7 +81,7 @@ services:
   retail-sales-microfrontend:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Sales.Microfrontend
+      context: ./Retail.Sales.Microfrontend/
     ports:
       - '6002:80'
 
@@ -90,7 +90,7 @@ services:
   retail-billing:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Billing
+      context: ./Retail.Billing/Retail.Billing.Host
     depends_on:
       retail-rabbitmq:
         condition: service_healthy
@@ -104,7 +104,7 @@ services:
   retail-shipping:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Shipping
+      context: ./Retail.Shipping/Retail.Shipping.Host
     depends_on:
       retail-rabbitmq:
         condition: service_healthy
@@ -118,7 +118,7 @@ services:
   retail-recommendations:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Recommendations
+      context: ./Retail.Recommendations/Retail.Recommendations.Service
     depends_on:
       retail-rabbitmq:
         condition: service_healthy
@@ -143,7 +143,7 @@ services:
   retail-auth:
     build:
       dockerfile: Dockerfile
-      context: ./Retail.Auth
+      context: ./Retail.Auth/IdentityServer
     ports:
       - '7001:80'
     depends_on:
@@ -167,7 +167,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:9200"]
       interval: 10s
       timeout: 10s
-      retries: 5
+      retries: 10
 
   retail-kibana:
     image: docker.elastic.co/kibana/kibana:7.11.0
